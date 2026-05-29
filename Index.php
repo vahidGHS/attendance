@@ -16,7 +16,11 @@
     <br><br>
 
     <a href="students.php">Students List</a>
+<br><br>
 
+<a href="scanner.php">
+    Open Scanner
+</a>
 </body>
 
 </html>

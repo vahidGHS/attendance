@@ -19,5 +19,21 @@
 
     <script src="js/html5-qrcode.min.js"></script>
 </body>
-
+<!--window.location =
+"mark_attendance.php?token=" + decodedText; ------------------------------------>
+    <script>
+        function onScanSuccess(decodedText){
+            window.location =
+            "mark_attendance.php?token=" + decodedText;
+        }
+        let scanner = new Html5QrcodeScanner(
+        "reader",
+        {
+            fps: 10,
+            qrbox: 250
+        }
+        
+     );
+         scanner.render(onScanSuccess);
+    </script>
 </html>
