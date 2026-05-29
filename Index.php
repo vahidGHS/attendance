@@ -21,6 +21,11 @@
 <a href="scanner.php">
     Open Scanner
 </a>
+<br><br>
+
+<a href="attendance_report.php">
+    Attendance Report
+</a>
 </body>
 
 </html>
