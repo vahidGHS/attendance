@@ -11,29 +11,54 @@
 
 <body>
 
-    <h2>QR Attendance Scanner</h2>
+    <h2>QR Scanner</h2>
 
     <div id="reader"></div>
 
     <div id="result"></div>
 
     <script src="js/html5-qrcode.min.js"></script>
-</body>
-<!--window.location =
-"mark_attendance.php?token=" + decodedText; ------------------------------------>
+
     <script>
-        function onScanSuccess(decodedText){
-            window.location =
-            "mark_attendance.php?token=" + decodedText;
-        }
-        let scanner = new Html5QrcodeScanner(
+
+    function onScanSuccess(decodedText){
+
+        document.getElementById("result")
+        .innerHTML = "Scanned: " + decodedText;
+
+        fetch("mark_attendance.php", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                "application/x-www-form-urlencoded"
+            },
+
+            body: "token=" + decodedText
+
+        })
+        .then(response => response.text())
+        .then(data => {
+
+            alert(data);
+
+        });
+
+    }
+
+    let scanner = new Html5QrcodeScanner(
         "reader",
         {
             fps: 10,
             qrbox: 250
         }
-        
-     );
-         scanner.render(onScanSuccess);
+    );
+
+    scanner.render(onScanSuccess);
+
     </script>
+
+</body>
+
 </html>
