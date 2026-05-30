@@ -33,52 +33,105 @@ if(isset($_POST['login'])){
 }
 
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="fa" dir="rtl">
 
 <head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <title>Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body{
+            background:#f5f5f5;
+        }
+        
+*{
+    font-family: "Vazirmatn", sans-serif;
+}
+        .login-card{
+            border-radius:30px;
+            overflow:hidden;
+            min-height:650px;
+        }
+
+        .login-form{
+            background:white;
+            padding:50px;
+        }
+       .login-btn{
+    background-color: #4f8555;
+    color: white;
+    border: none;
+
+}
+    </style>
 
 </head>
 
-<body>
+<body class="bg-light">
+<div class="container-fluid">
 
-<h2>Login</h2>
+    <div class="row vh-100 justify-content-center align-items-center">
 
-<?php
+        <div class="col-11 col-md-6 col-lg-4">
 
-if(isset($error)){
-    echo $error;
-}
+            <div class="card shadow">
 
-?>
+                <div class="card-body p-4">
 
-<form method="POST">
+                    <h3 class="text-center mb-4">
+                        حضور و غیاب 
+                    </h3>
 
-    <input
-        type="text"
-        name="username"
-        placeholder="Username"
-    >
+                    <form method="POST">
 
-    <br><br>
+                        <div class="mb-3">
 
-    <input
-        type="password"
-        name="password"
-        placeholder="Password"
-    >
+                            <label class="form-label">
+                                نام کاربری
+                            </label>
 
-    <br><br>
+                            <input
+                                type="text"
+                                name="username"
+                                class="form-control">
 
-    <button type="submit" name="login">
-        Login
-    </button>
+                        </div>
 
-</form>
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                پسوورد
+                            </label>
+
+                            <input
+                                type="password"
+                                name="password"
+                                class="form-control">
+
+                        </div>
+
+                        <button type="submit" class="btn login-btn w-100" name="login">
+
+                            ورود
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
-
-</html>
