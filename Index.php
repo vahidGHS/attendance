@@ -40,8 +40,8 @@ if(!isset($_SESSION['user'])){
         }
 
         .dashboard-btn{
-
-            background-color:#4f8555;
+             outline-style: solid;
+  outline-color: #3f6e45;
             color:white;
 
             border:none;
@@ -54,7 +54,7 @@ if(!isset($_SESSION['user'])){
             align-items:center;
 
             text-decoration:none;
-
+            color: #3f6e45;
             font-size:18px;
             font-weight:500;
 
@@ -130,7 +130,7 @@ if(!isset($_SESSION['user'])){
                         <div class="col-6">
 
                             <a href="attendance_report.php"
-                               class="dashboard-btn">
+                               class="dashboard-btn" >
 
                                 گزارش حضور و غیاب
 
@@ -141,7 +141,7 @@ if(!isset($_SESSION['user'])){
                         <div class="col-12">
 
                             <a href="logout.php"
-                               class="btn btn-danger w-100 py-3">
+                               class="btn btn-outline-danger w-100 py-3">
 
                                 خروج
 

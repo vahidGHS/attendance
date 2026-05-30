@@ -24,51 +24,121 @@ $result = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fa" dir="rtl">
 
 <head>
 
-    <title>Attendance Report</title>
+    <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="style.css">
+    <title>گزارش حضور و غیاب</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+
+        body{
+            background:#f5f5f5;
+            font-family:"Vazirmatn",sans-serif;
+        }
+
+        .report-card{
+            border:none;
+            border-radius:20px;
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-<h2>Attendance Report</h2>
+<div class="container py-5">
 
-<table border="1" cellpadding="10">
+    <div class="row justify-content-center">
 
-<tr>
+        <div class="col-12 col-lg-10">
 
-    <th>Student Name</th>
-    <th>Class</th>
-    <th>Attendance Time</th>
+            <div class="card shadow report-card">
 
-</tr>
-<?php
+                <div class="card-body p-4">
 
-while($row = mysqli_fetch_assoc($result)){
+                    <h2 class="text-center mb-4">
+                        گزارش حضور و غیاب
+                    </h2>
 
-?>
-<tr>
+                    <div class="table-responsive">
 
-    <td>
-        <?php echo $row['full_name']; ?>
-    </td>
+                        <table class="table table-striped table-hover align-middle">
 
-    <td>
-        <?php echo $row['class_name']; ?>
-    </td>
+                            <thead class="table-success">
 
-    <td>
-        <?php echo $row['attendance_time']; ?>
-    </td>
+                                <tr>
 
-</tr>
-<?php } ?>
-</table>
+                                    <th>نام دانش‌آموز</th>
+                                    <th>کلاس</th>
+                                    <th>زمان حضور</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            <?php
+                            while($row = mysqli_fetch_assoc($result)){
+                            ?>
+
+                                <tr>
+
+                                    <td>
+                                        <?php echo $row['full_name']; ?>
+                                    </td>
+
+                                    <td>
+                                        <?php echo $row['class_name']; ?>
+                                    </td>
+
+                                    <td>
+                                        <?php echo $row['attendance_time']; ?>
+                                    </td>
+
+                                </tr>
+
+                            <?php } ?>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div class="text-center mt-4">
+
+                        <a href="index.php"
+                           class="btn btn-outline-secondary">
+
+                            بازگشت به داشبورد
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
