@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+<?php
+
+session_start();
+
+if(!isset($_SESSION['user'])){
+
+    header("Location: login.php");
+
+    exit();
+
+}
+
+?>
 <html>
 
 <head>
@@ -29,3 +42,8 @@
 </body>
 
 </html>
+<br><br>
+
+<a href="logout.php">
+    Logout
+</a>
