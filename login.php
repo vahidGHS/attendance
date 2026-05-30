@@ -4,7 +4,7 @@ session_start();
 
 require_once "db.php";
 
-if(isset($_POST['login'])){
+if (isset($_POST['login'])) {
 
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -16,20 +16,28 @@ if(isset($_POST['login'])){
 
     $result = mysqli_query($conn, $query);
 
-    if(mysqli_num_rows($result) > 0){
+    if (mysqli_num_rows($result) > 0) {
+        $user = mysqli_fetch_assoc($result);
+
+        $_SESSION['user'] = $user['username'];
+
+        $_SESSION['role'] = $user['role'];
 
         $_SESSION['user'] = $username;
+        if ($user['role'] == 'admin') {
 
-        header("Location: index.php");
+            header("Location: index.php");
+        } else {
+
+            header("Location: student_dashboard.php");
+        }
+        
 
         exit();
-
-    }else{
+    } else {
 
         $error = "Invalid Username or Password";
-
     }
-
 }
 
 ?>
@@ -39,90 +47,93 @@ if(isset($_POST['login'])){
 <head>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-
-        body{
-            background:#f5f5f5;
-        }
-        
-*{
-    font-family: "Vazirmatn", sans-serif;
-}
-        .login-card{
-            border-radius:30px;
-            overflow:hidden;
-            min-height:650px;
+        body {
+            background: #f5f5f5;
         }
 
-        .login-form{
-            background:white;
-            padding:50px;
+        * {
+            font-family: "Vazirmatn", sans-serif;
         }
-       .login-btn{
-    background-color: #4f8555;
-    color: white;
-    border: none;
 
-}
+        .login-card {
+            border-radius: 30px;
+            overflow: hidden;
+            min-height: 650px;
+        }
+
+        .login-form {
+            background: white;
+            padding: 50px;
+        }
+
+        .login-btn {
+            background-color: #4f8555;
+            color: white;
+            border: none;
+
+        }
     </style>
 
 </head>
 
 <body class="bg-light">
-<div class="container-fluid">
+    <div class="container-fluid">
 
-    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="row vh-100 justify-content-center align-items-center">
 
-        <div class="col-11 col-md-6 col-lg-4">
+            <div class="col-11 col-md-6 col-lg-4">
 
-            <div class="card shadow">
+                <div class="card shadow">
 
-                <div class="card-body p-4">
+                    <div class="card-body p-4">
 
-                    <h3 class="text-center mb-4">
-                        حضور و غیاب 
-                    </h3>
+                        <h3 class="text-center mb-4">
+                            حضور و غیاب
+                        </h3>
 
-                    <form method="POST">
+                        <form method="POST">
 
-                        <div class="mb-3">
+                            <div class="mb-3">
 
-                            <label class="form-label">
-                                نام کاربری
-                            </label>
+                                <label class="form-label">
+                                    نام کاربری
+                                </label>
 
-                            <input
-                                type="text"
-                                name="username"
-                                class="form-control">
+                                <input
+                                    type="text"
+                                    name="username"
+                                    class="form-control">
 
-                        </div>
+                            </div>
 
-                        <div class="mb-3">
+                            <div class="mb-3">
 
-                            <label class="form-label">
-                                پسوورد
-                            </label>
+                                <label class="form-label">
+                                    پسوورد
+                                </label>
 
-                            <input
-                                type="password"
-                                name="password"
-                                class="form-control">
+                                <input
+                                    type="password"
+                                    name="password"
+                                    class="form-control">
 
-                        </div>
+                            </div>
 
-                        <button type="submit" class="btn login-btn w-100" name="login">
+                            <button type="submit" class="btn login-btn w-100" name="login">
 
-                            ورود
+                                ورود
 
-                        </button>
+                            </button>
 
-                    </form>
+                        </form>
+
+                    </div>
 
                 </div>
 
@@ -131,7 +142,5 @@ if(isset($_POST['login'])){
         </div>
 
     </div>
-
-</div>
 
 </body>

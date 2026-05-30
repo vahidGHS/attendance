@@ -17,6 +17,14 @@ if (isset($_POST['submit'])) {
 
     mysqli_query($conn, $query);
 
+    $query = "INSERT INTO users
+    (username, password, role)
+
+    VALUES
+
+    ('$student_code', '123', 'student')";
+
+    mysqli_query($conn, $query);
     echo "Student Added Successfully";
 }
 
