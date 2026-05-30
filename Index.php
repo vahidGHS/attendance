@@ -84,17 +84,13 @@ if(!isset($_SESSION['user'])){
 
                 <div class="card-body p-4">
 
-                    <h2 class="text-center mb-2">
-                        سیستم حضور و غیاب
-                    </h2>
+                    <h2 class="text-center mb-1">
+    داشبورد
+</h2>
 
-                    <p class="text-center text-muted mb-4">
-
-                        خوش آمدید
-
-                        <?php echo $_SESSION['user']; ?>
-
-                    </p>
+<p class="text-center text-muted mb-4">
+    <?php echo $_SESSION['user']; ?>
+</p>
 
                     <div class="row g-3">
 
