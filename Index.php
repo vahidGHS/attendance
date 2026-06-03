@@ -99,7 +99,7 @@ if(!isset($_SESSION['user'])){
                             <a href="add_student.php"
                                class="dashboard-btn">
 
-                                افزودن دانش‌آموز
+                                افزودن دانشحو
 
                             </a>
 
@@ -110,7 +110,7 @@ if(!isset($_SESSION['user'])){
                             <a href="students.php"
                                class="dashboard-btn">
 
-                                لیست دانش‌آموزان
+                                لیست دانشحویان
 
                             </a>
 
@@ -122,6 +122,16 @@ if(!isset($_SESSION['user'])){
                                class="dashboard-btn">
 
                                 اسکن QR
+
+                            </a>
+
+                        </div>
+                        <div class="col-6">
+
+                            <a href="add_teacher.php"
+                               class="dashboard-btn">
+
+                               افزودن استاد
 
                             </a>
 

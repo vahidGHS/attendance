@@ -46,7 +46,7 @@ $result = mysqli_query($conn, $query);
             <th class="table-success">ردیف</th>
             <th class="table-success">کد داتش آموزی</th>
             <th class="table-success">نام کامل</th>
-            <th class="table-success">کلاس</th>
+            
             <th class="table-success">QR Code</th>
         </tr>
 
@@ -64,7 +64,6 @@ $result = mysqli_query($conn, $query);
 
                 <td class="table-success"><?php echo $row['full_name']; ?></td>
 
-                <td class="table-success"><?php echo $row['class_name']; ?></td>
                 <td class="table-success">
 
                     <div id="qrcode<?php echo $row['id']; ?>"></div>

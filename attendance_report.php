@@ -6,7 +6,6 @@ $query = "
 
 SELECT
 students.full_name,
-students.class_name,
 attendance.attendance_time
 
 FROM attendance
@@ -80,7 +79,6 @@ $result = mysqli_query($conn, $query);
                                 <tr>
 
                                     <th>نام دانش‌آموز</th>
-                                    <th>کلاس</th>
                                     <th>زمان حضور</th>
 
                                 </tr>
@@ -99,9 +97,6 @@ $result = mysqli_query($conn, $query);
                                         <?php echo $row['full_name']; ?>
                                     </td>
 
-                                    <td>
-                                        <?php echo $row['class_name']; ?>
-                                    </td>
 
                                     <td>
                                         <?php echo $row['attendance_time']; ?>
