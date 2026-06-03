@@ -94,7 +94,7 @@ if (isset($_POST['login'])) {
                     <div class="card-body p-4">
 
                         <h3 class="text-center mb-4">
-                            حضور و غیاب
+                           ورود
                         </h3>
 
                         <form method="POST">

@@ -1,63 +1,133 @@
 <!DOCTYPE html>
-<html>
+<html lang="fa" dir="rtl">
 
 <head>
 
-    <title>QR Scanner</title>
+    <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="style.css">
+    <title>اسکن QR</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+
+        body{
+            background:#f5f5f5;
+            font-family:"Vazirmatn",sans-serif;
+        }
+
+        .scanner-card{
+            border:none;
+            border-radius:20px;
+        }
+
+        #reader{
+            width:100%;
+        }
+
+        #result{
+            text-align:center;
+            margin-top:20px;
+            font-weight:500;
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-    <h2>QR Scanner</h2>
+<div class="container">
 
-    <div id="reader"></div>
+    <div class="row justify-content-center py-5">
 
-    <div id="result"></div>
+        <div class="col-12 col-md-8 col-lg-6">
 
-    <script src="js/html5-qrcode.min.js"></script>
+            <div class="card shadow scanner-card">
 
-    <script>
+                <div class="card-body p-4">
 
-    function onScanSuccess(decodedText){
+                    <h2 class="text-center mb-4">
+                        اسکن کد QR
+                    </h2>
+
+                    <div id="reader"></div>
+
+                    <div id="result"
+                         class="alert alert-light mt-3">
+
+                        منتظر اسکن...
+
+                    </div>
+
+                    <div class="mt-4">
+
+                        <a href="index.php"
+                           class="btn btn-outline-success w-100">
+
+                            بازگشت به داشبورد
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="js/html5-qrcode.min.js"></script>
+
+<script>
+
+function onScanSuccess(decodedText){
+
+    document.getElementById("result")
+    .innerHTML = "کد اسکن شد";
+
+    fetch("mark_attendance.php", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type":
+            "application/x-www-form-urlencoded"
+        },
+
+        body: "token=" + decodedText
+
+    })
+    .then(response => response.text())
+    .then(data => {
 
         document.getElementById("result")
-        .innerHTML = "Scanned: " + decodedText;
+        .innerHTML = data;
 
-        fetch("mark_attendance.php", {
+    });
 
-            method: "POST",
+}
 
-            headers: {
-                "Content-Type":
-                "application/x-www-form-urlencoded"
-            },
-
-            body: "token=" + decodedText
-
-        })
-        .then(response => response.text())
-        .then(data => {
-
-            alert(data);
-
-        });
-
+let scanner = new Html5QrcodeScanner(
+    "reader",
+    {
+        fps: 10,
+        qrbox: 250
     }
+);
 
-    let scanner = new Html5QrcodeScanner(
-        "reader",
-        {
-            fps: 10,
-            qrbox: 250
-        }
-    );
+scanner.render(onScanSuccess);
 
-    scanner.render(onScanSuccess);
-
-    </script>
+</script>
 
 </body>
 
