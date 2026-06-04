@@ -184,7 +184,15 @@ if (isset($_POST['submit'])) {
         </div>
 
     </div>
+    <div class="d-flex justify-content-center">
+        <a
+            href="index.php"
+            class="btn btn-outline-success w-50">
 
+            بازگشت به داشبورد
+
+        </a>
+    </div>
 </body>
 
 </html>

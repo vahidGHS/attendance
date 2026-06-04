@@ -124,6 +124,15 @@ if(!isset($_SESSION['user'])){
                                 اسکن QR
 
                             </a>
+                        </div>
+                        
+                        <div class="col-6">
+
+                            <a href="teachers.php"
+                               class="dashboard-btn" >
+
+                               مدیریت اساتید
+                            </a>
 
                         </div>
                         <div class="col-6">
