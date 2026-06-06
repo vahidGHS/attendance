@@ -47,8 +47,8 @@ $result = mysqli_query($conn, $query);
             <th class="table-success">ردیف</th>
             <th class="table-success">کد داتش آموزی</th>
             <th class="table-success">نام کامل</th>
-
             <th class="table-success">QR Code</th>
+            <th>عملیات</th>
         </tr>
 
         <?php
@@ -70,7 +70,26 @@ $result = mysqli_query($conn, $query);
                     <div id="qrcode<?php echo $row['id']; ?>"></div>
 
                 </td>
+                <td>
 
+                    <a
+                        href="edit_student.php?id=<?php echo $row['id']; ?>"
+                        class="btn btn-warning btn-sm">
+
+                        ویرایش
+
+                    </a>
+
+                    <a
+                        href="delete_student.php?id=<?php echo $row['id']; ?>"
+                        class="btn btn-danger btn-sm"
+                        onclick="return confirm('آیا از حذف این دانشجو مطمئن هستید؟')">
+
+                        حذف
+
+                    </a>
+
+                </td>
             </tr>
 
         <?php } ?>
