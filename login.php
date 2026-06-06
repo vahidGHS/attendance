@@ -8,7 +8,7 @@ if (isset($_POST['login'])) {
 
     $username = $_POST['username'];
     $password = $_POST['password'];
-
+    
     $query = "SELECT * FROM users
 
     WHERE username='$username'
@@ -25,12 +25,18 @@ if (isset($_POST['login'])) {
 
         $_SESSION['user'] = $username;
         if ($user['role'] == 'admin') {
-
+             $_SESSION['dashboard'] = 'index.php';
             header("Location: index.php");
-        } else {
+        } 
+        elseif($user['role']=='teacher') {
+             $_SESSION['dashboard'] = 'teacherPanel.php';
+            header("Location: teacherPanel.php");
+        }
+        else{
 
             header("Location: student_dashboard.php");
         }
+        
         
 
         exit();

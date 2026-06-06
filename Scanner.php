@@ -15,65 +15,62 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 
     <style>
-
-        body{
-            background:#f5f5f5;
-            font-family:"Vazirmatn",sans-serif;
+        body {
+            background: #f5f5f5;
+            font-family: "Vazirmatn", sans-serif;
         }
 
-        .scanner-card{
-            border:none;
-            border-radius:20px;
+        .scanner-card {
+            border: none;
+            border-radius: 20px;
         }
 
-        #reader{
-            width:100%;
+        #reader {
+            width: 100%;
         }
 
-        #result{
-            text-align:center;
-            margin-top:20px;
-            font-weight:500;
+        #result {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 500;
         }
-
     </style>
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <div class="row justify-content-center py-5">
+        <div class="row justify-content-center py-5">
 
-        <div class="col-12 col-md-8 col-lg-6">
+            <div class="col-12 col-md-8 col-lg-6">
 
-            <div class="card shadow scanner-card">
+                <div class="card shadow scanner-card">
 
-                <div class="card-body p-4">
+                    <div class="card-body p-4">
 
-                    <h2 class="text-center mb-4">
-                        اسکن کد QR
-                    </h2>
+                        <h2 class="text-center mb-4">
+                            اسکن کد QR
+                        </h2>
 
-                    <div id="reader"></div>
+                        <div id="reader"></div>
 
-                    <div id="result"
-                         class="alert alert-light mt-3">
+                        <div id="result"
+                            class="alert alert-light mt-3">
 
-                        منتظر اسکن...
+                            منتظر اسکن...
 
-                    </div>
+                        </div>
 
-                    <div class="mt-4">
+                        <div class="d-flex justify-content-center">
+                            <a href="<?php session_start(); echo $_SESSION['dashboard']; ?>"
+                                class="btn btn-outline-danger w-100 py-3">
 
-                        <a href="index.php"
-                           class="btn btn-outline-success w-100">
+                                بازگشت
 
-                            بازگشت به داشبورد
-
-                        </a>
-
+                            </a>
+                        </div>
                     </div>
 
                 </div>
@@ -84,50 +81,46 @@
 
     </div>
 
-</div>
+    </div>
 
-<script src="js/html5-qrcode.min.js"></script>
+    <script src="js/html5-qrcode.min.js"></script>
 
-<script>
+    <script>
+        function onScanSuccess(decodedText) {
 
-function onScanSuccess(decodedText){
+            document.getElementById("result")
+                .innerHTML = "کد اسکن شد";
 
-    document.getElementById("result")
-    .innerHTML = "کد اسکن شد";
+            fetch("mark_attendance.php", {
 
-    fetch("mark_attendance.php", {
+                    method: "POST",
 
-        method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
 
-        headers: {
-            "Content-Type":
-            "application/x-www-form-urlencoded"
-        },
+                    body: "token=" + decodedText
 
-        body: "token=" + decodedText
+                })
+                .then(response => response.text())
+                .then(data => {
 
-    })
-    .then(response => response.text())
-    .then(data => {
+                    document.getElementById("result")
+                        .innerHTML = data;
 
-        document.getElementById("result")
-        .innerHTML = data;
+                });
 
-    });
+        }
 
-}
+        let scanner = new Html5QrcodeScanner(
+            "reader", {
+                fps: 10,
+                qrbox: 250
+            }
+        );
 
-let scanner = new Html5QrcodeScanner(
-    "reader",
-    {
-        fps: 10,
-        qrbox: 250
-    }
-);
-
-scanner.render(onScanSuccess);
-
-</script>
+        scanner.render(onScanSuccess);
+    </script>
 
 </body>
 

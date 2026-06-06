@@ -1,7 +1,7 @@
 <?php
 
 require_once "db.php";
-
+session_start();
 $query = "
 
 SELECT
@@ -39,87 +39,85 @@ $result = mysqli_query($conn, $query);
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 
     <style>
-
-        body{
-            background:#f5f5f5;
-            font-family:"Vazirmatn",sans-serif;
+        body {
+            background: #f5f5f5;
+            font-family: "Vazirmatn", sans-serif;
         }
 
-        .report-card{
-            border:none;
-            border-radius:20px;
+        .report-card {
+            border: none;
+            border-radius: 20px;
         }
-
     </style>
 
 </head>
 
 <body>
 
-<div class="container py-5">
+    <div class="container py-5">
 
-    <div class="row justify-content-center">
+        <div class="row justify-content-center">
 
-        <div class="col-12 col-lg-10">
+            <div class="col-12 col-lg-10">
 
-            <div class="card shadow report-card">
+                <div class="card shadow report-card">
 
-                <div class="card-body p-4">
+                    <div class="card-body p-4">
 
-                    <h2 class="text-center mb-4">
-                        گزارش حضور و غیاب
-                    </h2>
+                        <h2 class="text-center mb-4">
+                            گزارش حضور و غیاب
+                        </h2>
 
-                    <div class="table-responsive">
+                        <div class="table-responsive">
 
-                        <table class="table table-striped table-hover align-middle">
+                            <table class="table table-striped table-hover align-middle">
 
-                            <thead class="table-success">
+                                <thead class="table-success">
 
-                                <tr>
+                                    <tr>
 
-                                    <th>نام دانش‌آموز</th>
-                                    <th>زمان حضور</th>
+                                        <th>نام دانش‌آموز</th>
+                                        <th>زمان حضور</th>
 
-                                </tr>
+                                    </tr>
 
-                            </thead>
+                                </thead>
 
-                            <tbody>
+                                <tbody>
 
-                            <?php
-                            while($row = mysqli_fetch_assoc($result)){
-                            ?>
+                                    <?php
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
 
-                                <tr>
+                                        <tr>
 
-                                    <td>
-                                        <?php echo $row['full_name']; ?>
-                                    </td>
+                                            <td>
+                                                <?php echo $row['full_name']; ?>
+                                            </td>
 
 
-                                    <td>
-                                        <?php echo $row['attendance_time']; ?>
-                                    </td>
+                                            <td>
+                                                <?php echo $row['attendance_time']; ?>
+                                            </td>
 
-                                </tr>
+                                        </tr>
 
-                            <?php } ?>
+                                    <?php } ?>
 
-                            </tbody>
+                                </tbody>
 
-                        </table>
+                            </table>
 
-                    </div>
+                        </div>
 
-                    <div class="text-center mt-4">
+                        <div class="d-flex justify-content-center">
+                            <a href="<?php echo $_SESSION['dashboard']; ?>"
+                                class="btn btn-outline-danger w-100 py-3">
 
-                        <a href="index.php"
-                           class="btn btn-outline-secondary">
+                                بازگشت
 
-                            بازگشت به داشبورد
-
-                        </a>
+                            </a>
+                        </div>
 
                     </div>
 
@@ -131,9 +129,8 @@ $result = mysqli_query($conn, $query);
 
     </div>
 
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

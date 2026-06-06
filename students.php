@@ -1,6 +1,7 @@
 <?php
 
 include "db.php";
+session_start();
 
 $query = "SELECT * FROM students";
 
@@ -46,7 +47,7 @@ $result = mysqli_query($conn, $query);
             <th class="table-success">ردیف</th>
             <th class="table-success">کد داتش آموزی</th>
             <th class="table-success">نام کامل</th>
-            
+
             <th class="table-success">QR Code</th>
         </tr>
 
@@ -79,9 +80,7 @@ $result = mysqli_query($conn, $query);
         <?php
 
         mysqli_data_seek($result, 0);
-
         while ($row = mysqli_fetch_assoc($result)) {
-
         ?>
 
             new QRCode(
@@ -96,11 +95,10 @@ $result = mysqli_query($conn, $query);
     </script>
     <br>
     <div class="d-flex justify-content-center">
-        <a
-            href="index.php"
-            class="btn btn-outline-success w-50">
+        <a href="<?php echo $_SESSION['dashboard']; ?>"
+            class="btn btn-outline-danger w-100 py-3">
 
-            بازگشت به داشبورد
+            بازگشت
 
         </a>
     </div>
