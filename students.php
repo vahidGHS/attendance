@@ -38,16 +38,17 @@ $result = mysqli_query($conn, $query);
 
 <body>
 
-    <h2 class="title">لیست دانش آموزان</h2>
+    <h2 class="title">لیست دانشجویان</h2>
     <br>
     <br>
     <table border="1" cellpadding="10" class="table table-striped table-success">
 
         <tr class="table-success">
             <th class="table-success">ردیف</th>
-            <th class="table-success">کد داتش آموزی</th>
+            <th class="table-success">کد دانشجویی</th>
             <th class="table-success">نام کامل</th>
             <th class="table-success">QR Code</th>
+            <th class="table-success">آمار حضور</th>
             <th>عملیات</th>
         </tr>
 
@@ -69,6 +70,21 @@ $result = mysqli_query($conn, $query);
 
                     <div id="qrcode<?php echo $row['id']; ?>"></div>
 
+                </td>
+                <td class="table-success">
+                    <?php
+
+                    $query = "SELECT COUNT(*) AS total
+          FROM attendance
+          WHERE student_id = {$row['id']}";
+
+                    $countResult = mysqli_query($conn, $query);
+
+                    $count = mysqli_fetch_assoc($countResult);
+
+                    echo $count['total'];
+
+                    ?>
                 </td>
                 <td>
 
