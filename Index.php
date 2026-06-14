@@ -2,11 +2,10 @@
 
 session_start();
 
-if(!isset($_SESSION['user'])){
+if (!isset($_SESSION['user'])) {
 
     header("Location: login.php");
     exit();
-
 }
 
 ?>
@@ -28,143 +27,151 @@ if(!isset($_SESSION['user'])){
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 
     <style>
-
-        body{
-            background:#f5f5f5;
-            font-family:"Vazirmatn",sans-serif;
+        body {
+            background: #f5f5f5;
+            font-family: "Vazirmatn", sans-serif;
         }
 
-        .dashboard-card{
-            border:none;
-            border-radius:20px;
+        .dashboard-card {
+            border: none;
+            border-radius: 20px;
         }
 
-        .dashboard-btn{
-             outline-style: solid;
-  outline-color: #3f6e45;
-            color:white;
+        .dashboard-btn {
+            outline-style: solid;
+            outline-color: #3f6e45;
+            color: white;
 
-            border:none;
-            border-radius:15px;
+            border: none;
+            border-radius: 15px;
 
-            min-height:120px;
+            min-height: 120px;
 
-            display:flex;
-            justify-content:center;
-            align-items:center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-            text-decoration:none;
+            text-decoration: none;
             color: #3f6e45;
-            font-size:18px;
-            font-weight:500;
+            font-size: 18px;
+            font-weight: 500;
 
-            transition:0.3s;
+            transition: 0.3s;
         }
 
-        .dashboard-btn:hover{
+        .dashboard-btn:hover {
 
-            background-color:#3f6e45;
-            color:white;
+            background-color: #3f6e45;
+            color: white;
 
         }
-
     </style>
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="row vh-100 justify-content-center align-items-center">
 
-        <div class="col-11 col-md-8 col-lg-6">
+            <div class="col-11 col-md-8 col-lg-6">
 
-            <div class="card shadow dashboard-card">
+                <div class="card shadow dashboard-card">
 
-                <div class="card-body p-4">
+                    <div class="card-body p-4">
 
-                    <h2 class="text-center mb-1">
-    داشبورد
-</h2>
+                        <h2 class="text-center mb-1">
+                            داشبورد
+                        </h2>
 
-<p class="text-center text-muted mb-4">
-    <?php echo $_SESSION['user']; ?>
-</p>
+                        <p class="text-center text-muted mb-4">
+                            <?php echo $_SESSION['user']; ?>
+                        </p>
 
-                    <div class="row g-3">
+                        <div class="row g-3">
 
-                        <div class="col-6">
+                            <div class="col-4">
 
-                            <a href="add_student.php"
-                               class="dashboard-btn">
+                                <a href="add_student.php"
+                                    class="dashboard-btn">
 
-                                افزودن دانشحو
+                                    افزودن دانشحو
 
-                            </a>
+                                </a>
 
-                        </div>
+                            </div>
 
-                        <div class="col-6">
+                            <div class="col-4">
 
-                            <a href="students.php"
-                               class="dashboard-btn">
+                                <a href="students.php"
+                                    class="dashboard-btn">
 
-                                لیست دانشحویان
+                                    لیست دانشحویان
 
-                            </a>
+                                </a>
 
-                        </div>
+                            </div>
 
-                        <div class="col-6">
+                            <div class="col-4">
 
-                            <a href="scanner.php"
-                               class="dashboard-btn">
+                                <a href="scanner.php"
+                                    class="dashboard-btn">
 
-                                اسکن QR
+                                    اسکن QR
 
-                            </a>
-                        </div>
-                        
-                        <div class="col-6">
+                                </a>
+                            </div>
+                            <div class="col-4">
 
-                            <a href="teachers.php"
-                               class="dashboard-btn" >
+                                <a href="Add_courses.php"
+                                    class="dashboard-btn">
 
-                               مدیریت اساتید
-                            </a>
+                                    اضافه کردن درس
 
-                        </div>
-                        <div class="col-6">
+                                </a>
+                            </div>
+                            <div class="col-4">
 
-                            <a href="add_teacher.php"
-                               class="dashboard-btn">
+                                <a href="teachers.php"
+                                    class="dashboard-btn">
 
-                               افزودن استاد
+                                    مدیریت اساتید
+                                </a>
 
-                            </a>
+                            </div>
+                            <div class="col-4">
 
-                        </div>
+                                <a href="add_teacher.php"
+                                    class="dashboard-btn">
 
-                        <div class="col-6">
+                                    افزودن استاد
 
-                            <a href="attendance_report.php"
-                               class="dashboard-btn" >
+                                </a>
 
-                                گزارش حضور و غیاب
+                            </div>
 
-                            </a>
+                            <div class="col-4">
 
-                        </div>
+                                <a href="attendance_report.php"
+                                    class="dashboard-btn">
 
-                        <div class="col-12">
+                                    گزارش حضور و غیاب
 
-                            <a href="logout.php"
-                               class="btn btn-outline-danger w-100 py-3">
+                                </a>
 
-                                خروج
+                            </div>
 
-                            </a>
+                            <div class="col-12">
+
+                                <a href="logout.php"
+                                    class="btn btn-outline-danger w-100 py-3">
+
+                                    خروج
+
+                                </a>
+
+                            </div>
 
                         </div>
 
@@ -178,7 +185,6 @@ if(!isset($_SESSION['user'])){
 
     </div>
 
-</div>
-
 </body>
+
 </html>
