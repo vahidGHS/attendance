@@ -54,7 +54,7 @@
                             اسکن کد QR
                         </h2>
 
-                        <div id="reader"></div>
+                        <video id="reader" style="width:100%; border-radius: 12px;"></video>
 
                         <div id="result"
                             class="alert alert-light mt-3">
@@ -64,7 +64,8 @@
                         </div>
 
                         <div class="d-flex justify-content-center">
-                            <a href="<?php session_start(); echo $_SESSION['dashboard']; ?>"
+                            <a href="<?php session_start();
+                                        echo $_SESSION['dashboard']; ?>"
                                 class="btn btn-outline-danger w-100 py-3">
 
                                 بازگشت
@@ -83,43 +84,33 @@
 
     </div>
 
-    <script src="js/html5-qrcode.min.js"></script>
+    <script src="js/zxing.min.js"></script>
 
     <script>
-        function onScanSuccess(decodedText) {
+        const hints = new Map();
+        hints.set(ZXing.DecodeHintType.TRY_HARDER, true);
 
-            document.getElementById("result")
-                .innerHTML = "کد اسکن شد";
+        const codeReader = new ZXing.BrowserQRCodeReader(hints);
 
-            fetch("mark_attendance.php", {
+        codeReader.decodeFromVideoDevice(undefined, 'reader', (result, err) => {
+            if (result) {
+                const decodedText = result.getText();
+                alert(decodedText);
+                document.getElementById("result").innerHTML = "کد اسکن شد";
 
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-
-                    body: "token=" + decodedText
-
-                })
-                .then(response => response.text())
-                .then(data => {
-
-                    document.getElementById("result")
-                        .innerHTML = data;
-
-                });
-
-        }
-
-        let scanner = new Html5QrcodeScanner(
-            "reader", {
-                fps: 10,
-                qrbox: 250
+                fetch("mark_attendance.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: "token=" + encodeURIComponent(decodedText)
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById("result").innerHTML = data;
+                    });
             }
-        );
-
-        scanner.render(onScanSuccess);
+        });
     </script>
 
 </body>

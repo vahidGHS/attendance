@@ -7,13 +7,13 @@ if (isset($_POST['submit'])) {
     $student_code = $_POST['student_code'];
     $full_name = $_POST['full_name'];
     $class_name = $_POST['class_name'];
-    $token = md5(uniqid());
+    $token = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 6);
     $query = "INSERT INTO students
-    (student_code, full_name, class_name, qr_token)
+    (student_code, full_name, qr_token)
 
     VALUES
 
-    ('$student_code', '$full_name', '$class_name', '$token')";
+    ('$student_code', '$full_name', '$token')";
 
     mysqli_query($conn, $query);
 

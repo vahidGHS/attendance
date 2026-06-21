@@ -47,75 +47,79 @@ $student = mysqli_fetch_assoc($result);
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 
     <style>
-
-        body{
-            background:#f5f5f5;
-            font-family:"Vazirmatn",sans-serif;
+        body {
+            background: #f5f5f5;
+            font-family: "Vazirmatn", sans-serif;
         }
 
-        .student-card{
-            border:none;
-            border-radius:20px;
+        .student-card {
+            border: none;
+            border-radius: 20px;
         }
 
-        #qrcode{
-            display:flex;
-            justify-content:center;
+        #qrcode {
+            display: flex;
+            justify-content: center;
         }
 
-        .logout-btn{
-            background:#dc3545;
-            color:white;
-            border:none;
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
         }
 
-        .logout-btn:hover{
-            background:#bb2d3b;
-            color:white;
+        .logout-btn:hover {
+            background: #bb2d3b;
+            color: white;
         }
-
     </style>
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="row vh-100 justify-content-center align-items-center">
 
-        <div class="col-11 col-md-8 col-lg-5">
+            <div class="col-11 col-md-8 col-lg-5">
 
-            <div class="card shadow student-card">
+                <div class="card shadow student-card">
 
-                <div class="card-body p-4 text-center">
+                    <div class="card-body p-4 text-center">
 
-                    <h2 class="mb-2">
-                        کارت حضور و غیاب
-                    </h2>
+                        <h2 class="mb-2">
+                            کارت حضور و غیاب
+                        </h2>
 
-                    <p class="text-muted mb-4">
+                        <p class="text-muted mb-4">
 
-                        <?php echo $student['full_name']; ?>
+                            <?php echo $student['full_name']; ?>
 
-                    </p>
+                        </p>
 
-                    <div id="qrcode" class="mb-4"></div>
+                        <div class="mb-4 d-flex justify-content-center">
+                            <div style="background:white; padding:16px; display:inline-block; border-radius:8px;">
+                                <div id="qrcode"></div>
+                            </div>
+                        </div>
 
-                    <div class="alert alert-light border">
+                        <div class="alert alert-light border">
 
-                        <strong>کد دانش‌آموزی:</strong>
+                            <strong>کد دانش‌آموزی:</strong>
 
-                        <?php echo $student['student_code']; ?>
+                            <?php echo $student['student_code']; ?>
+
+                        </div>
+
+                        <a href="logout.php"
+                            class="btn logout-btn w-100">
+
+                            خروج
+
+                        </a>
 
                     </div>
-
-                    <a href="logout.php"
-                       class="btn logout-btn w-100">
-
-                        خروج
-
-                    </a>
 
                 </div>
 
@@ -125,22 +129,18 @@ $student = mysqli_fetch_assoc($result);
 
     </div>
 
-</div>
+    <script>
+        let qrSize = Math.min(window.innerWidth * 0.6, 250);
 
-<script>
-
-    let qrSize = Math.min(window.innerWidth * 0.6, 250);
-
-    new QRCode(
-        document.getElementById("qrcode"),
-        {
-            text: "<?php echo $student['qr_token']; ?>",
-            width: qrSize,
-            height: qrSize
-        }
-    );
-
-</script>
+        new QRCode(
+            document.getElementById("qrcode"), {
+                text: "<?php echo $student['qr_token']; ?>",
+                width: qrSize,
+                height: qrSize
+            }
+        );
+    </script>
 
 </body>
+
 </html>

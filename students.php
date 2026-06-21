@@ -67,9 +67,9 @@ $result = mysqli_query($conn, $query);
                 <td class="table-success"><?php echo $row['full_name']; ?></td>
 
                 <td class="table-success">
-
-                    <div id="qrcode<?php echo $row['id']; ?>"></div>
-
+                    <div style="background:white; padding:16px; display:inline-block;">
+                        <div id="qrcode<?php echo $row['id']; ?>"></div>
+                    </div>
                 </td>
                 <td class="table-success">
                     <?php
@@ -118,13 +118,12 @@ $result = mysqli_query($conn, $query);
         while ($row = mysqli_fetch_assoc($result)) {
         ?>
 
-            new QRCode(
-                document.getElementById("qrcode<?php echo $row['id']; ?>"), {
-                    text: "<?php echo $row['qr_token']; ?>",
-                    width: 100,
-                    height: 100
-                }
-            );
+            new QRCode(document.getElementById("qrcode<?php echo $row['id']; ?>"), {
+                text: "<?php echo $row['qr_token']; ?>",
+                width: 256,
+                height: 256,
+                correctLevel: QRCode.CorrectLevel.M
+            });
 
         <?php } ?>
     </script>
