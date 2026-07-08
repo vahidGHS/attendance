@@ -1,8 +1,8 @@
 
     <?php
-
+session_start();
 require_once "db.php";
-
+$courseid=$_SESSION['course_id'];
 $token = $_POST['token'];
 $query = "SELECT * FROM students
 WHERE qr_token='$token'";
@@ -12,11 +12,11 @@ if(mysqli_num_rows($result) > 0){
     $student_id = $student['id'];
     $time = date("Y-m-d H:i:s");
     $insert = "INSERT INTO attendance
-    (student_id, attendance_time)
+    (student_id, attendance_time,course_id)
 
     VALUES
 
-    ('$student_id', '$time')";
+    ('$student_id', '$time', $courseid)";
     mysqli_query($conn, $insert);
     echo "  done";
 

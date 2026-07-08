@@ -1,7 +1,16 @@
 <?php
 
 require_once "db.php";
+
 session_start();
+
+if (!isset($_SESSION['course_id'])) {
+    die("ابتدا یک درس انتخاب کنید.");
+}
+
+$course_id = $_SESSION['course_id'];
+
+
 $query = "
 
 SELECT
@@ -11,11 +20,11 @@ attendance.attendance_time
 FROM attendance
 
 JOIN students
-
 ON attendance.student_id = students.id
 
-ORDER BY attendance.id DESC
+WHERE attendance.course_id = $course_id
 
+ORDER BY attendance.id DESC
 ";
 $result = mysqli_query($conn, $query);
 

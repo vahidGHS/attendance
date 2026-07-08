@@ -1,12 +1,45 @@
 <?php
-
 include "db.php";
 session_start();
+if ($_SESSION['role'] == "admin") {
 
-$query = "SELECT * FROM students";
+    $query = "
+    SELECT *
+    FROM students
+    ORDER BY full_name
+    ";
+    $result = mysqli_query($conn, $query);
+} else {
+    if (!isset($_SESSION['course_id'])) {
+        die("ابتدا یک درس انتخاب کنید.");
+    }
 
-$result = mysqli_query($conn, $query);
+    $course_id = $_SESSION['course_id'];
 
+
+    
+
+    $query = "
+SELECT students.*
+FROM students
+
+INNER JOIN student_courses
+ON students.id = student_courses.student_id
+
+WHERE student_courses.course_id = $course_id
+
+ORDER BY students.full_name
+";
+
+    $result = mysqli_query($conn, $query);
+    $q = mysqli_query($conn, "
+SELECT course_name
+FROM courses
+WHERE id=$course_id
+");
+
+    $course = mysqli_fetch_assoc($q);
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +71,10 @@ $result = mysqli_query($conn, $query);
 
 <body>
 
-    <h2 class="title">لیست دانشجویان</h2>
+    <h2 class="title">
+        لیست دانشجویان
+        <?php echo $course['course_name']; ?>
+    </h2>
     <br>
     <br>
     <table border="1" cellpadding="10" class="table table-striped table-success">

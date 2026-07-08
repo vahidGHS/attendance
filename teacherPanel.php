@@ -2,12 +2,51 @@
 require_once "db.php";
 session_start();
 
+
+
 if (!isset($_SESSION['user'])) {
 
     header("Location: login.php");
     exit();
 }
 $user = $_SESSION['user'];
+
+
+// ذخیره درس انتخاب شده
+if (isset($_POST['course_id'])) {
+    $_SESSION['course_id'] = $_POST['course_id'];
+}
+
+// دریافت لیست درس‌های استاد
+$courseQuery = "
+SELECT id, course_name
+FROM courses
+WHERE teacher_code='$user'
+ORDER BY course_name
+";
+
+$courseResult = mysqli_query($conn, $courseQuery);
+
+// نام درس انتخاب شده
+$selectedCourse = "";
+
+if (isset($_SESSION['course_id'])) {
+
+    $id = $_SESSION['course_id'];
+
+    $q = mysqli_query($conn, "
+        SELECT course_name
+        FROM courses
+        WHERE id=$id
+    ");
+
+    if (mysqli_num_rows($q) > 0) {
+        $selectedCourse = mysqli_fetch_assoc($q)['course_name'];
+    }
+}
+
+
+
 $query = "
 SELECT full_name
 FROM teachers
@@ -97,8 +136,63 @@ $teacher = mysqli_fetch_assoc($result);
                             <?php echo $teacher['full_name']; ?>
                         </p>
 
+
+                        <form method="POST" class="mb-4">
+
+                            <label class="form-label">
+                                درس فعال
+                            </label>
+
+                            <select
+                                name="course_id"
+                                class="form-select"
+                                onchange="this.form.submit()">
+
+                                <option value="">
+                                    انتخاب درس...
+                                </option>
+
+                                <?php
+                                mysqli_data_seek($courseResult, 0);
+
+                                while ($course = mysqli_fetch_assoc($courseResult)) {
+                                ?>
+
+                                    <option
+                                        value="<?php echo $course['id']; ?>"
+                                        <?php
+                                        if (
+                                            isset($_SESSION['course_id']) &&
+                                            $_SESSION['course_id'] == $course['id']
+                                        )
+                                            echo "selected";
+                                        ?>>
+
+                                        <?php echo $course['course_name']; ?>
+
+                                    </option>
+
+                                <?php } ?>
+
+                            </select>
+
+                        </form>
+
+                        <?php if ($selectedCourse != "") { ?>
+
+                            <div class="alert alert-success text-center">
+
+                                درس فعال:
+                                <b><?php echo $selectedCourse; ?></b>
+
+                            </div>
+
+                        <?php } ?>
+
+
+
                         <div class="row g-3">
-                            
+
                             <div class="col-12">
 
                                 <a href="scanner.php"

@@ -1,3 +1,13 @@
+<?php 
+session_start();
+
+if (!isset($_SESSION['course_id'])) {
+    die("ابتدا یک درس انتخاب کنید.");
+}
+
+$course_id = $_SESSION['course_id'];
+
+?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -64,7 +74,7 @@
                         </div>
 
                         <div class="d-flex justify-content-center">
-                            <a href="<?php session_start();
+                            <a href="<?php
                                         echo $_SESSION['dashboard']; ?>"
                                 class="btn btn-outline-danger w-100 py-3">
 
