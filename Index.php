@@ -151,17 +151,6 @@ if (!isset($_SESSION['user'])) {
 
                             </div>
 
-                            <div class="col-4">
-
-                                <a href="attendance_report.php"
-                                    class="dashboard-btn">
-
-                                    گزارش حضور و غیاب
-
-                                </a>
-
-                            </div>
-
                             <div class="col-12">
 
                                 <a href="logout.php"
