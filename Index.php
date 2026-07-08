@@ -124,10 +124,10 @@ if (!isset($_SESSION['user'])) {
                             </div>
                             <div class="col-4">
 
-                                <a href="Add_courses.php"
+                                <a href="courses.php"
                                     class="dashboard-btn">
 
-                                    اضافه کردن درس
+                                   مدیریت دروس
 
                                 </a>
                             </div>
