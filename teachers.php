@@ -85,7 +85,7 @@ $result = mysqli_query($conn, $query);
     <div class="d-flex justify-content-center">
         <a
             href="index.php"
-            class="btn btn-outline-success w-50">
+            class="btn btn-outline-secondary w-100">
 
             بازگشت به داشبورد
 

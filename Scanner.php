@@ -86,7 +86,7 @@ $course_id = $_SESSION['course_id'];
                         <div class="d-flex justify-content-center">
                             <a href="<?php
                                         echo $_SESSION['dashboard']; ?>"
-                                class="btn btn-outline-danger w-100 py-3">
+                                class="btn btn-outline-secondary w-100">
 
                                 بازگشت
 
