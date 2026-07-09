@@ -6,7 +6,6 @@ if (isset($_POST['submit'])) {
 
     $student_code = $_POST['student_code'];
     $full_name = $_POST['full_name'];
-    $class_name = $_POST['class_name'];
     $token = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 6);
     $query = "INSERT INTO students
     (student_code, full_name, qr_token)
@@ -110,19 +109,6 @@ if (isset($_POST['submit'])) {
                                 <input
                                     type="text"
                                     name="full_name"
-                                    class="form-control">
-
-                            </div>
-
-                            <div class="mb-4">
-
-                                <label class="form-label">
-                                    کلاس
-                                </label>
-
-                                <input
-                                    type="text"
-                                    name="class_name"
                                     class="form-control">
 
                             </div>

@@ -1,12 +1,22 @@
 <?php 
 session_start();
+include "db.php";
 
+if ($_SESSION['role'] == "teacher") {
+
+    $query = "
+    SELECT *
+    FROM students
+    ORDER BY full_name
+    ";
+    $result = mysqli_query($conn, $query);
+ 
 if (!isset($_SESSION['course_id'])) {
     die("ابتدا یک درس انتخاب کنید.");
 }
 
 $course_id = $_SESSION['course_id'];
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">

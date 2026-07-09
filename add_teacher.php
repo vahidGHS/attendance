@@ -6,7 +6,6 @@ if (isset($_POST['submit'])) {
 
     $teacher_code = $_POST['teacher_code'];
     $full_name = $_POST['full_name'];
-    $subject_name = $_POST['subject_name'];
     $password = $_POST['password'];
 
     $user_query = "
@@ -23,13 +22,11 @@ if (isset($_POST['submit'])) {
     $teacher_query = "
     INSERT INTO teachers(
         teacher_code,
-        full_name,
-        subject_name
+        full_name
     )
     VALUES(
         '$teacher_code',
-        '$full_name',
-        '$subject_name'
+        '$full_name'
     )
     ";
 
@@ -131,20 +128,6 @@ if (isset($_POST['submit'])) {
                                 <input
                                     type="text"
                                     name="full_name"
-                                    class="form-control"
-                                    required>
-
-                            </div>
-
-                            <div class="mb-3">
-
-                                <label class="form-label">
-                                    نام درس
-                                </label>
-
-                                <input
-                                    type="text"
-                                    name="subject_name"
                                     class="form-control"
                                     required>
 

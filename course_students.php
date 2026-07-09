@@ -1,4 +1,4 @@
-```php
+
 <?php
 
 require_once "db.php";
@@ -17,7 +17,15 @@ if(isset($_GET['delete'])){
     ");
 
 }
-
+$all_students = mysqli_query($conn,"
+SELECT *
+FROM students
+WHERE id NOT IN(
+    SELECT student_id
+    FROM student_courses
+    WHERE course_id=$course_id
+)
+");
 // اطلاعات درس
 $course = mysqli_fetch_assoc(mysqli_query($conn,"
 SELECT
@@ -183,4 +191,4 @@ class="btn btn-outline-secondary">
 </body>
 
 </html>
-```
+
