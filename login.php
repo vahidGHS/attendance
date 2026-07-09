@@ -4,11 +4,20 @@ session_start();
 
 require_once "db.php";
 
+$result = mysqli_query($conn, "
+SELECT COUNT(*) AS total
+FROM users
+WHERE role='admin'
+");
+
+$row = mysqli_fetch_assoc($result);
+
+$hasAdmin = $row['total'] > 0;
 if (isset($_POST['login'])) {
 
     $username = $_POST['username'];
     $password = $_POST['password'];
-    
+
     $query = "SELECT * FROM users
 
     WHERE username='$username'
@@ -25,19 +34,17 @@ if (isset($_POST['login'])) {
 
         $_SESSION['user'] = $username;
         if ($user['role'] == 'admin') {
-             $_SESSION['dashboard'] = 'index.php';
+            $_SESSION['dashboard'] = 'index.php';
             header("Location: index.php");
-        } 
-        elseif($user['role']=='teacher') {
-             $_SESSION['dashboard'] = 'teacherPanel.php';
+        } elseif ($user['role'] == 'teacher') {
+            $_SESSION['dashboard'] = 'teacherPanel.php';
             header("Location: teacherPanel.php");
-        }
-        else{
+        } else {
 
             header("Location: student_dashboard.php");
         }
-        
-        
+
+
 
         exit();
     } else {
@@ -61,6 +68,30 @@ if (isset($_POST['login'])) {
     <style>
         body {
             background: #f5f5f5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: #4f855530;
+            top: -120px;
+            left: -120px;
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: #4f855520;
+            bottom: -80px;
+            right: -80px;
         }
 
         * {
@@ -98,9 +129,27 @@ if (isset($_POST['login'])) {
                 <div class="card shadow">
 
                     <div class="card-body p-4">
+                        <?php if (!$hasAdmin) { ?>
+
+                            <div class="alert alert-warning text-center">
+
+                                <h5>هیچ مدیر سیستمی وجود ندارد.</h5>
+
+                                <p class="mb-0">
+                                    ابتدا باید یک کاربر با نقش <b>admin</b> 
+                                    <b>دیتا بیس attendancedb</b>
+                                    ایجاد شود.
+                                </p>
+
+                            </div>
+
+                        <?php } else { ?>
+
+
+
 
                         <h3 class="text-center mb-4">
-                           ورود
+                            ورود
                         </h3>
 
                         <form method="POST">
@@ -139,6 +188,7 @@ if (isset($_POST['login'])) {
 
                         </form>
 
+                        <?php } ?>
                     </div>
 
                 </div>
