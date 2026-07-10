@@ -113,15 +113,7 @@ if (!isset($_SESSION['user'])) {
 
                             </div>
 
-                            <div class="col-4">
 
-                                <a href="scanner.php"
-                                    class="dashboard-btn">
-
-                                    اسکن QR
-
-                                </a>
-                            </div>
                             <div class="col-4">
 
                                 <a href="courses.php"
@@ -131,7 +123,7 @@ if (!isset($_SESSION['user'])) {
 
                                 </a>
                             </div>
-                            <div class="col-4">
+                            <div class="col-6">
 
                                 <a href="teachers.php"
                                     class="dashboard-btn">
@@ -140,7 +132,7 @@ if (!isset($_SESSION['user'])) {
                                 </a>
 
                             </div>
-                            <div class="col-4">
+                            <div class="col-6">
 
                                 <a href="add_teacher.php"
                                     class="dashboard-btn">

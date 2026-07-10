@@ -1,23 +1,20 @@
 <?php
-require_once "db.php";
-session_start();
+require_once "db.php"; // اتصال به پایگاه داده
+session_start(); // شروع سشن اساتید
 
-
-
+// گارد امنیتی: اگر کاربر لاگین نکرده باشد، به صفحه ورود منتقل می‌شود
 if (!isset($_SESSION['user'])) {
-
     header("Location: login.php");
     exit();
 }
-$user = $_SESSION['user'];
+$user = $_SESSION['user']; // دریافت کد استاد از سشن
 
-
-// ذخیره درس انتخاب شده
+// در صورت انتخاب یا تغییر درس از منوی کشویی، شناسه درس در سشن بروزرسانی می‌شود
 if (isset($_POST['course_id'])) {
     $_SESSION['course_id'] = $_POST['course_id'];
 }
 
-// دریافت لیست درس‌های استاد
+// کوئری دریافت لیست تمامی درس‌هایی که متعلق به این استاد است
 $courseQuery = "
 SELECT id, course_name
 FROM courses
@@ -27,13 +24,11 @@ ORDER BY course_name
 
 $courseResult = mysqli_query($conn, $courseQuery);
 
-// نام درس انتخاب شده
-$selectedCourse = "";
+$selectedCourse = ""; // متغیر نگهداری نام درس انتخاب شده
 
+// پیدا کردن و استخراج نام درس فعالِ فعلی از دیتابیس جهت نمایش به استاد
 if (isset($_SESSION['course_id'])) {
-
     $id = $_SESSION['course_id'];
-
     $q = mysqli_query($conn, "
         SELECT course_name
         FROM courses
@@ -45,8 +40,7 @@ if (isset($_SESSION['course_id'])) {
     }
 }
 
-
-
+// کوئری دریافت مشخصات و نام کامل استاد جهت شخصی‌سازی خوش‌آمدگویی داشبورد
 $query = "
 SELECT full_name
 FROM teachers
@@ -54,198 +48,81 @@ WHERE teacher_code=$user
 ";
 $result = mysqli_query($conn, $query);
 $teacher = mysqli_fetch_assoc($result);
-
 ?>
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
-
     <meta charset="UTF-8">
-
     <title>پنل اساتید</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            background: #f5f5f5;
-            font-family: "Vazirmatn", sans-serif;
-        }
-
-        .dashboard-card {
-            border: none;
-            border-radius: 20px;
-        }
-
+        body { background: #f5f5f5; font-family: "Vazirmatn", sans-serif; }
+        .dashboard-card { border: none; border-radius: 20px; }
         .dashboard-btn {
-            outline-style: solid;
-            outline-color: #3f6e45;
-            color: white;
-
-            border: none;
-            border-radius: 15px;
-
-            min-height: 120px;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            text-decoration: none;
-            color: #3f6e45;
-            font-size: 18px;
-            font-weight: 500;
-
-            transition: 0.3s;
+            outline-style: solid; outline-color: #3f6e45; color: #3f6e45;
+            border: none; border-radius: 15px; min-height: 120px;
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none; font-size: 18px; font-weight: 500; transition: 0.3s;
         }
-
-        .dashboard-btn:hover {
-
-            background-color: #3f6e45;
-            color: white;
-
-        }
+        .dashboard-btn:hover { background-color: #3f6e45; color: white; }
     </style>
-
 </head>
 
 <body>
-
     <div class="container">
-
         <div class="row vh-100 justify-content-center align-items-center">
-
             <div class="col-11 col-md-8 col-lg-6">
-
                 <div class="card shadow dashboard-card">
-
                     <div class="card-body p-4">
-
-                        <h2 class="text-center mb-1">
-                            داشبورد
-                        </h2>
-
-                        <p class="text-center text-muted mb-4">
-                            <?php echo $teacher['full_name']; ?>
-                        </p>
-
+                        <h2 class="text-center mb-1">داشبورد</h2>
+                        <p class="text-center text-muted mb-4"><?php echo $teacher['full_name']; ?></p>
 
                         <form method="POST" class="mb-4">
-
-                            <label class="form-label">
-                                درس فعال
-                            </label>
-
-                            <select
-                                name="course_id"
-                                class="form-select"
-                                onchange="this.form.submit()">
-
-                                <option value="">
-                                    انتخاب درس...
-                                </option>
-
+                            <label class="form-label">درس فعال</label>
+                            <select name="course_id" class="form-select" onchange="this.form.submit()">
+                                <option value="">انتخاب درس...</option>
                                 <?php
                                 mysqli_data_seek($courseResult, 0);
-
                                 while ($course = mysqli_fetch_assoc($courseResult)) {
                                 ?>
-
-                                    <option
-                                        value="<?php echo $course['id']; ?>"
-                                        <?php
-                                        if (
-                                            isset($_SESSION['course_id']) &&
-                                            $_SESSION['course_id'] == $course['id']
-                                        )
-                                            echo "selected";
-                                        ?>>
-
+                                    <option value="<?php echo $course['id']; ?>" 
+                                        <?php if (isset($_SESSION['course_id']) && $_SESSION['course_id'] == $course['id']) echo "selected"; ?>>
                                         <?php echo $course['course_name']; ?>
-
                                     </option>
-
                                 <?php } ?>
-
                             </select>
-
                         </form>
 
                         <?php if ($selectedCourse != "") { ?>
-
                             <div class="alert alert-success text-center">
-
-                                درس فعال:
-                                <b><?php echo $selectedCourse; ?></b>
-
+                                درس فعال: <b><?php echo $selectedCourse; ?></b>
                             </div>
-
                         <?php } ?>
 
-
-
                         <div class="row g-3">
-
                             <div class="col-12">
-
-                                <a href="scanner.php"
-                                    class="dashboard-btn">
-
-                                    اسکن QR
-
-                                </a>
+                                <a href="scanner.php" class="dashboard-btn">اسکن QR</a>
                             </div>
                             <div class="col-6">
-
-                                <a href="students.php"
-                                    class="dashboard-btn">
-
-                                    لیست دانشحویان
-
-                                </a>
-
+                                <a href="students.php" class="dashboard-btn">لیست دانشجویان</a>
                             </div>
-
                             <div class="col-6">
-
-                                <a href="attendance_report.php"
-                                    class="dashboard-btn">
-
-                                    گزارش حضور و غیاب
-
-                                </a>
-
+                                <a href="attendance_report.php" class="dashboard-btn">گزارش حضور و غیاب</a>
                             </div>
-
                             <div class="col-12">
-                                <a href="logout.php"
-                                    class="btn btn-outline-danger w-100 py-3">
-
-                                    خروج
-
-                                </a>
-
+                                <a href="logout.php" class="btn btn-outline-danger w-100 py-3">خروج</a>
                             </div>
-
                         </div>
 
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </body>
-
 </html>

@@ -1,12 +1,16 @@
 <?php
 
-include "db.php";
-
+require_once "db.php";
+// require_once "includes/helpers.php";
 if (isset($_POST['submit'])) {
 
     $student_code = $_POST['student_code'];
     $full_name = $_POST['full_name'];
     $token = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 6);
+     if (!validateStudentCode($_POST['student_code'])) {
+        die("کد دانشجویی معتبر نیست.");
+     } else {
+
     $query = "INSERT INTO students
     (student_code, full_name, qr_token)
 
@@ -14,7 +18,9 @@ if (isset($_POST['submit'])) {
 
     ('$student_code', '$full_name', '$token')";
 
-    mysqli_query($conn, $query);
+    if (!mysqli_query($conn, $query)) {
+        die(mysqli_error($conn));
+    }
 
     $query = "INSERT INTO users
     (username, password, role)
@@ -23,10 +29,13 @@ if (isset($_POST['submit'])) {
 
     ('$student_code', '123', 'student')";
 
-    mysqli_query($conn, $query);
+    if (!mysqli_query($conn, $query)) {
+        die(mysqli_error($conn));
+    }
     echo "Student Added Successfully";
+    $success = "دانشجو با موفقیت ثبت شد";
 }
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -84,7 +93,15 @@ if (isset($_POST['submit'])) {
                         <h2 class="text-center mb-4">
                             افزودن دانشجو
                         </h2>
-
+                        <?php
+                        if (isset($success)) {
+                        ?>
+                            <div class="alert alert-success">
+                                <?php echo $success; ?>
+                            </div>
+                        <?php
+                        }
+                        ?>
                         <form method="POST">
 
                             <div class="mb-3">
@@ -96,7 +113,8 @@ if (isset($_POST['submit'])) {
                                 <input
                                     type="text"
                                     name="student_code"
-                                    class="form-control">
+                                    class="form-control"
+                                    placeholder="حداقل 7 رقم حداکثر 12">
 
                             </div>
 

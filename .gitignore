@@ -1,9 +1,22 @@
-# Node
+# Dependencies
 node_modules/
 
 # Playwright
 test-results/
 playwright-report/
 
-# تصاویر و فایل‌های دیباگ
-debug-*.png
+# Composer
+vendor/
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
